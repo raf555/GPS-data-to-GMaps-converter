@@ -1,1 +1,1 @@
-# GPS-data-to-GMaps-converter
+Convert GPS data to Google Maps Link

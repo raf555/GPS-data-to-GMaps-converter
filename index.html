@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <title>Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-3.5.1.min.js"
+    ></script>
+    <script>
+      jQuery(document).ready(function() {
+        $("#btn").click(function() {
+          if ($("#isi").val() == "") {
+            $("#res").html(
+              '<center><pre class="prettyprint"><label style="color:red">Data masih kosong.</label></pre></center>'
+            );
+            return false;
+          }
+          var latregex = /Lat:([\d\D]*),Lon/gi;
+          var lonregex = /Lon:([\d\D]*),Course/gi;
+          var isi = $("#isi").val();
+          var lat = latregex.exec(isi);//[1];
+          var lon = lonregex.exec(isi);//[1];
+          if (!lat || !lon) {
+            $("#res").html(
+              '<center><pre class="prettyprint"><label style="color:red">Data tidak valid.</label></pre></center>'
+            );
+            return false;
+          }
+          var url = "https://maps.google.com/?q=" + lat[1] + "," + lon[1];
+          $("#res").html(
+            '<center><pre class="prettyprint"><a href="' +
+              url +
+              '" target="_blank">' +
+              url +
+              "</a></pre></center>"
+          );
+        });
+      });
+    </script>
+  </head>
+  <body class="" style="">
+    <center>
+      <h4 class="widgettitle">Google Map Link Generator<br>From GPS Output</h4>
+      <textarea
+        class="form-control"
+        placeholder="Isi di sini"
+        id="isi"
+        style="height:100px;width:200px"
+      ></textarea
+      ><br /><br />
+      <button class="button" id="btn">Generate</button><br />
+      <span id="res"></span>
+    </center>
+  </body>
+</html>
